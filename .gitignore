@@ -1,0 +1,7 @@
+hits.parquet
+hits_multi
+datafusion-cli*
+venv
+*~
+my-db*
+.history
