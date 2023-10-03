@@ -1,69 +1,118 @@
-# ClickBench: DataFusion / DuckDB comparision scripts
+# DataFusion / DuckDB Benchmarking Scripts
 
-This benchmark compares DataFusion to DuckDB performance with the  [ClickBench](https://github.com/ClickHouse/ClickBench) queries aganst the unmodified ClickBench parquet files.
-
-# Results
-![Result Chart](chart.png)
-
+Benchmarking DataFusion and DuckDB over [ClickBench](https://benchmark.clickhouse.com), [TPC-H](https://www.tpc.org/tpch/default5.asp), and [H2O.ai](https://h2oai.github.io/db-benchmark/)
 
 ## Versions
-* DataFusion 27.0.0
-* DataFusion 28.0.0
+* DataFusion 31.0.0
 * DuckDB 0.8.1
 
-## Scenarios
-* Single parquet file (hits.parquet)
+## Results
+All results are checked in to [results]
 
-## Download Data:
-```shell
-bash setup.sh
-```
+The scripts in this repository run queries via python bindings for both DataFusion and DuckDB
 
-## Install DataFusion-CLI
+## Setting up the Environment
 
-Install from crates.io:
-```shell
-cargo install datafusion-cli --version 28.0.0
-```
+```bash
 
-Or build from source
-
-```shell
-git clone https://github.com/apache/arrow-datafusion.git
-cd datafusion
-cargo install --path datafusion-cli
-```
-
-## Install DuckDB
-```shell
-python3 -m venv `pwd`/venv
+# Setup Python virtual environment and databases
+python3 -m venv venv
 source venv/bin/activate
-pip install duckdb psutil
+pip install pyarrow pandas matplotlib seaborn
+
+# install duckdb
+pip install duckdb==0.8.1 psutil
+
+# install DataFusion
+pip install --upgrade datafusion==31.0.0
+
 ```
 
-## Run queries
-queres are run with `run-datafusion.sh` or `run-duckdb.sh`.
+## ClickBench
 
-DuckDB:
-```shell
-CREATE=create-single-duckdb.sql bash run-duckdb.sh
+```bash
+cd clickbench/
+
+# Download the dataset
+bash setup.sh
+
+# The results are written to
+#  ../results/latest/clickbench_datafusion.csv
+#  ../results/latest/clickbench_duckdb.csv
+
+bash benchmark.sh single
+python3 plot.py comparison
+
+# Run and plot scalability benchmarks
+bash benchmark.sh multi multi
+python3 plot.py scalability
 ```
 
-DataFusion
-```shell
-DATAFUSION_CLI=./datafusion-cli.413eba1 CREATE=create-single-datafusion.sql bash run-datafusion.sh
+## H2O.ai
+
+```bash
+cd h2o/
+
+# Download the dataset
+bash setup.sh
+
+# Run the benchmarks. Results will be written to h2o_datafusion.csv and h2o_duckdb.csv
+bash benchmark.sh [cores (single/multi)]
+
+# Plot the results. Currently supports only comparison charts
+python3 plot.py
 ```
 
-More examples in [benchmark.sh](benchmark.sh)
+## TPC-H
 
-# Results
-Results are written into [`result.csv`](result.csv)
+```bash
+cd tpch/
+
+# Download the dataset
+bash setup.sh
+
+# Run the benchmarks. Results will be written to tpch_datafusion.csv and tpch_duckdb.csv
+bash benchmark.sh [cores (single/multi)]
+
+# Plot the results. Currently supports only comparison charts
+python3 plot.py
+```
+
+**Credits**: https://github.com/alamb/datafusion-duckdb-benchmark
 
 
-## Python Example
+## Appendix: Installing pre-release builds:
 
-The example python script is [hash.py](hash.py)
+These instructions are for installing pre-release builds of DataFuson
+and DuckDB for testing.
 
-```shell
-python3 hash.py
+Work in progress
+
+
+### DataFusion
+
+```bash
+# install datafusion
+git clone https://github.com/apache/arrow-datafusion.git
+git clone https://github.com/apache/arrow-datafusion-python.git
+
+# follow instructions at https://github.com/apache/arrow-datafusion-python to build and install datafusion-python
+
+# build with
+maturin develop --release
+
+
+cd arrow-datafusion
+git checkout 31.0.0
+cargo install --profile release --path datafusion-cli
+```
+
+### DuckDB
+
+TODO: create pip binary
+```bash
+git clone https://github.com/duckdb/duckdb
+cd duckdb
+git checkout v0.8.1
+BUILD_BENCHMARK=1 BUILD_TPCH=1 make -j$(nproc)
 ```

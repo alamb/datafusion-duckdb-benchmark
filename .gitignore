@@ -5,3 +5,9 @@ venv
 *~
 my-db*
 .history
+arrow-datafusion/
+arrow-datafusion-python
+duckdb/
+h2o/*.csv
+tpch/*.csv
+clickbench/*.csv
