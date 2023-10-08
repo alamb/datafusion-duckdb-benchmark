@@ -1,4 +1,5 @@
 from prettytable import PrettyTable
+import os
 
 def read_file(file_path):
     data = dict()
@@ -31,6 +32,10 @@ if __name__ == "__main__":
     benches = ["tpch", "h2o", "clickbench"]
     for bench in benches:
         table = list()
+        if not os.path.exists(f"latest/{bench}_datafusion.csv"):
+            print("Did not fine data for {bench}, skipping")
+            continue
+
         datafusion_results = read_file(f"latest/{bench}_datafusion.csv")
         duckdb_results = read_file(f"latest/{bench}_duckdb.csv")
 

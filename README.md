@@ -18,7 +18,7 @@ The scripts in this repository run queries via python bindings for both DataFusi
 # Setup Python virtual environment and databases
 python3 -m venv venv
 source venv/bin/activate
-pip install pyarrow pandas matplotlib seaborn
+pip install pyarrow pandas matplotlib seaborn prettytable
 
 # install DuckDB
 pip install duckdb==0.8.1 psutil
