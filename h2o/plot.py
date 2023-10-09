@@ -7,7 +7,7 @@ import sys
 if __name__ == "__main__":
     engines = ["duckdb", "datafusion"]
     sns.set_theme(style="whitegrid", palette="bright")
-   
+
     plt.figure(figsize=(15,5))
 
     data = {
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     }
 
     for engine in engines:
-        with open(f'h2o_{engine}.csv') as f:
+        with open(f'../results/latest/h2o_{engine}.csv') as f:
                 lines = f.readlines()
 
         for line in lines:
@@ -35,4 +35,6 @@ if __name__ == "__main__":
     df = pd.DataFrame(data)
     g = sns.barplot(x="query", y="duration", errorbar="sd", errwidth=0.1, capsize=0.2, hue="engine", data=df)
     g.set(xlabel="Query", ylabel="Duration (s)")
-    plt.savefig(f"comparison.h2o.pdf", bbox_inches='tight')
+    output = f"../results/latest/comparison.h2o.pdf"
+    print("Writing results to {}".format(output))
+    plt.savefig(output, bbox_inches='tight')

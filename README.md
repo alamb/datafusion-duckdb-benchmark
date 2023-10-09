@@ -59,24 +59,25 @@ cd h2o/
 bash setup.sh
 
 # Run the benchmarks. Results will be written to h2o_datafusion.csv and h2o_duckdb.csv
-bash benchmark.sh [cores (single/multi)]
+bash benchmark.sh
 
 # Plot the results. Currently supports only comparison charts
 python3 plot.py
 ```
 
 ## TPC-H
-
 ```bash
 cd tpch/
 
 # Download the dataset
 bash setup.sh
 
-# Run the benchmarks. Results will be written to tpch_datafusion.csv and tpch_duckdb.csv
-bash benchmark.sh [cores (single/multi)]
+# Run the benchmarks. Results will be written to
+#  ../results/latest/clickbench_datafusion.csv
+#  ../results/latest/clickbench_duckdb.csv
+bash benchmark.sh
 
-# Plot the results. Currently supports only comparison charts
+# Plot the results
 python3 plot.py
 ```
 
