@@ -18,7 +18,7 @@ The scripts in this repository run queries via python bindings for both DataFusi
 # Setup Python virtual environment and databases
 python3 -m venv venv
 source venv/bin/activate
-pip install pyarrow pandas matplotlib seaborn
+pip install pyarrow pandas matplotlib seaborn prettytable
 
 # install DuckDB
 pip install duckdb==0.8.1 psutil
@@ -59,24 +59,25 @@ cd h2o/
 bash setup.sh
 
 # Run the benchmarks. Results will be written to h2o_datafusion.csv and h2o_duckdb.csv
-bash benchmark.sh [cores (single/multi)]
+bash benchmark.sh
 
 # Plot the results. Currently supports only comparison charts
 python3 plot.py
 ```
 
 ## TPC-H
-
 ```bash
 cd tpch/
 
 # Download the dataset
 bash setup.sh
 
-# Run the benchmarks. Results will be written to tpch_datafusion.csv and tpch_duckdb.csv
-bash benchmark.sh [cores (single/multi)]
+# Run the benchmarks. Results will be written to
+#  ../results/latest/clickbench_datafusion.csv
+#  ../results/latest/clickbench_duckdb.csv
+bash benchmark.sh
 
-# Plot the results. Currently supports only comparison charts
+# Plot the results
 python3 plot.py
 ```
 
@@ -143,6 +144,13 @@ index 5ca3eee..c4a0418 100644
 
 
 Build by following instructions at https://github.com/apache/arrow-datafusion-python to build and install datafusion-python
+
+Ensure we have activated the correct venv
+
+```shell
+$ which python3
+/home/alamb/datafusion-duckdb-benchmark/venv/bin/python3
+```
 
 ```
 source venv/bin/activate

@@ -10,11 +10,6 @@ QUERY_NUM=1
 
 echo "Using ${CREATE}, appending results to ${RESULT_FILE}"
 
-python3 -m venv `pwd`/venv
-source venv/bin/activate
-# Installed as part of setup
-# pip install --upgrade duckdb==0.8.1 psutil
-
 # clean out old database
 rm -f *.duckdb*
 

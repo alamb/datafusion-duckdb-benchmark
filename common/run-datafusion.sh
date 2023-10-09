@@ -20,8 +20,6 @@ QUERY_NUM=1
 
 echo "Using ${CREATE}, appending results to ${RESULT_FILE}"
 
-python3 -m venv `pwd`/venv
-source venv/bin/activate
 # installed as part of setup
 # pip install --upgrade datafusion==31.0.0
 
