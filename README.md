@@ -144,8 +144,12 @@ index 5ca3eee..c4a0418 100644
 
 Build by following instructions at https://github.com/apache/arrow-datafusion-python to build and install datafusion-python
 
+Ensure we have activated the correct venv
+
+$ which python3
+/home/alamb/datafusion-duckdb-benchmark/venv/bin/python3
+
 ```
-source venv/bin/activate
 maturin develop --release
 ```
 
