@@ -69,3 +69,22 @@ if __name__ == "__main__":
         print(f"Best is {round(1/best_times, 2)}x faster")
         print(f"Worst is {round(worst_times, 2)}x slower")
         print("\n")
+
+        # generate latex table
+        latex_table = list()
+        latex_table.append("\\begin{table}[h]")
+        latex_table.append("\\centering")
+        latex_table.append("\\begin{tabular}{|l|l|l|l|}")
+        latex_table.append("\\hline")
+        latex_table.append("Query & DataFusion & DuckDB & Summary (Datafusion / DuckDB) \\\\")
+        latex_table.append("\\hline")
+        for row in table[1:]:
+            latex_table.append(" & ".join([str(x) for x in row]) + " \\\\")
+            latex_table.append("\\hline")
+        latex_table.append("\\end{tabular}")
+        latex_table.append("\\caption{DataFusion vs DuckDB performance comparison}")
+        latex_table.append("\\label{table:1}")
+        latex_table.append("\\end{table}")
+
+        with open(f"{bench}.tex", "w") as f:
+            f.write("\n".join(latex_table))
