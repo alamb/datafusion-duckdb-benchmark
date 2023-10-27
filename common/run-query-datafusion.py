@@ -33,11 +33,12 @@ if __name__ == "__main__":
             for create_query in create_queries:
                 ctx.sql(create_query)
             end = timeit.default_timer()
-        
+
         print("Setup table: {}".format(end - start))
 
         for try_num in range(1, 6):
             start = timeit.default_timer()
+            # split up multi part query
             if query_num == "15" and result_file == "tpch_datafusion.csv":
                 query_parts = query.split(";")[:-1]
                 for query_part in query_parts:
