@@ -1,15 +1,18 @@
 # ClickBench: DataFusion / DuckDB comparision scripts
 
-This benchmark compares DataFusion to DuckDB performance with the  [ClickBench](https://github.com/ClickHouse/ClickBench) queries aganst the unmodified ClickBench parquet files.
+This benchmark compares DataFusion 34.0.0 and 25.0.0 performance with the  [ClickBench](https://github.com/ClickHouse/ClickBench) queries aganst the unmodified ClickBench parquet files.
 
 # Results
 ![Result Chart](chart.png)
+![Result Chart2](chart2.png)
 
+Raw data is in [result.csv](result.csv) See [Google Sheet] for source data
+
+[Google Sheet]: https://docs.google.com/spreadsheets/d/1FtI3652WIJMC5LmJbLfT3G06w0JQIxEPG4yfMafexh8/edit#gid=530035076
 
 ## Versions
-* DataFusion 27.0.0
-* DataFusion 28.0.0
-* DuckDB 0.8.1
+* DataFusion 25.0.0
+* DataFusion 34.0.0
 
 ## Scenarios
 * Single parquet file (hits.parquet)
@@ -34,15 +37,8 @@ cd datafusion
 cargo install --path datafusion-cli
 ```
 
-## Install DuckDB
-```shell
-python3 -m venv `pwd`/venv
-source venv/bin/activate
-pip install duckdb psutil
-```
-
 ## Run queries
-queres are run with `run-datafusion.sh` or `run-duckdb.sh`.
+queres are run with `run-datafusion.sh`
 
 DuckDB:
 ```shell
